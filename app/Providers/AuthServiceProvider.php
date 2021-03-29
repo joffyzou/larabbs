@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::guessPolicyNamesUsing(function ($modleClass) {
+            return 'App\Policies\\' . class_basename($modleClass) . 'Policy';
+        });
     }
 }
