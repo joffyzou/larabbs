@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Topic extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'title', 
-        'body', 
-        'category_id', 
-        'excerpt', 
+        'title',
+        'body',
+        'category_id',
+        'excerpt',
         'slug'
     ];
 
@@ -34,7 +34,7 @@ class Topic extends Model
                 break;
             default:
                 $query->recentReplied();
-                break;    
+                break;
         }
     }
 
@@ -51,5 +51,10 @@ class Topic extends Model
     public function link($params = [])
     {
         return route('topics.show', array_merge([$this->id, $this->slug], $params));
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 }
